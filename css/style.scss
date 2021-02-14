@@ -1,0 +1,181 @@
+$font-size:15px;
+
+@mixin alignCenter{
+    display: block;
+    margin: 0 auto;
+}
+
+$fontSizeH1:30px;
+$fontSizeH2:25px;
+$fontSizeH3:20px;
+$fontSizeP:15px;
+
+header{
+  h1{
+    font-size: $fontSizeH1;
+  }
+}
+
+.container{
+
+  .icon{
+    @include alignCenter();
+    width: 200px;
+  }
+
+  h2{
+    font-size: $fontSizeH2;
+  }
+
+  h3{
+    font-size: $fontSizeH3;
+  }
+  p{
+    font-size: $fontSizeP;
+  }
+  
+}
+
+
+
+//hamburgerMenu
+//クリック前の３本線
+.nav_toggle {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  height: 32px;
+  z-index: 10;
+  cursor: pointer;
+
+  div {
+    position: relative;
+    width: 36px;
+
+    span {
+      width: 100%;
+      height: 1px;
+      left: 0;
+      display: block;
+      background: #333;
+      position: absolute;
+      -webkit-transition: top .5s ease, -webkit-transform .6s ease-in-out;
+      transition: top .5s ease, -webkit-transform .6s ease-in-out;
+      transition: transform .6s ease-in-out, top .5s ease;
+      transition: transform .6s ease-in-out, top .5s ease, -webkit-transform .6s ease-in-out;
+    }
+
+    $top:14px;
+
+    @for $i from 1 through 3 {
+      .span_#{$i} {
+        top: $top * ($i - 1);
+
+      }
+    }
+
+  }
+}
+
+//click後の３本線
+.open {
+  overflow: hidden;
+
+  .nav_toggle {
+    @mixin rot($deg) {
+      -webkit-transform: rotate($deg);
+      transform: rotate($deg);
+    }
+
+    @for $i from 1 through 3 {
+      .span_#{$i} {
+        background-color: red;
+        top: 15px;
+
+        @if $i==1 {
+          @include rot(45deg);
+        }
+
+        @if $i==2 {
+          width: 0;
+          left: 50%;
+        }
+
+        @if $i==3 {
+          @include rot(-45deg);
+        }
+
+      }
+    }
+  }
+
+  .gloval_nav {
+    visibility: visible;
+    opacity: 1;
+
+    li {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+      -webkit-transition: opacity .9s ease, -webkit-transform 1s ease;
+      transition: opacity .9s ease, -webkit-transform 1s ease;
+      transition: transform 1s ease, opacity .9s ease;
+      transition: transform 1s ease, opacity .9s ease, -webkit-transform 1s ease;
+    }
+  }
+}
+
+
+
+.gloval_nav {
+  background: white;
+  color: #656565;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  visibility: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 29px;
+  opacity: 0;
+  -webkit-transition: opacity .6s ease, visibility .6s ease;
+  transition: opacity .6s ease, visibility .6s ease;
+
+
+  ul {
+    list-style: none;
+
+    li {
+      opacity: 0;
+      -webkit-transform: translateX(200px);
+      transform: translateX(200px);
+      -webkit-transition: opacity .2s ease, -webkit-transform .6s ease;
+      transition: opacity .2s ease, -webkit-transform .6s ease;
+      transition: transform .6s ease, opacity .2s ease;
+      transition: transform .6s ease, opacity .2s ease, -webkit-transform .6s ease;
+
+      a {
+        display: block;
+        color: #656565;
+        text-decoration: none;
+        padding: 10px 0;
+        -webkit-transition: color .6s ease;
+        transition: color .6s ease;
+      }
+    }
+  }
+}
