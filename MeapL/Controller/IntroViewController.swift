@@ -30,7 +30,6 @@ class IntroViewController: UIViewController,UIScrollViewDelegate {
         
         setUpScroll()
         playAnimation()
-        print(UIScreen.main.bounds.size.width)
     }
 
     var scrollView:UIScrollView = {
@@ -39,7 +38,6 @@ class IntroViewController: UIViewController,UIScrollViewDelegate {
         sv.translatesAutoresizingMaskIntoConstraints=false
         return sv
     }()
-    
     
     func setupViews() {
         view.addSubview(scrollView)
@@ -55,15 +53,15 @@ class IntroViewController: UIViewController,UIScrollViewDelegate {
         scrollView.delegate = self
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 6, height: UIScreen.main.bounds.height)
         
-        
         for i in 0...5{
             //文字の高さ
             let animationTextLabel = UILabel(frame: CGRect(x: UIScreen.main.bounds.width * CGFloat(i), y: UIScreen.main.bounds.height / 20 * 10, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 3 / 5))
             
+            
+            //animatinではなく、開始ボタンを表示
             if i == 5{
                            
                 var startBtn = UIButton(frame: CGRect(x: Int(UIScreen.main.bounds.width)*51/10, y:Int(UIScreen.main.bounds.height*0.5) , width: Int(UIScreen.main.bounds.width*0.8), height: 50))
-                                                     
                        
                 startBtn.backgroundColor = .black
                 startBtn.setTitle("Let's get started", for: .normal)
@@ -78,9 +76,7 @@ class IntroViewController: UIViewController,UIScrollViewDelegate {
             animationTextLabel.text = animationTextArray[i]
             animationTextLabel.numberOfLines = 2
             scrollView.addSubview(animationTextLabel)
-            
         }
-        
     }
     
     func playAnimation(){
@@ -110,5 +106,5 @@ class IntroViewController: UIViewController,UIScrollViewDelegate {
         }
     }
     
-
+    
 }

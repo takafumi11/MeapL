@@ -21,9 +21,7 @@ class RecordViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     @IBOutlet weak var plusBtn: UIButton!
     
     var recordArr:[String] = []
-    
-    var cellCount:Int = 1
-    
+            
     var locationName:String = ""
     var recordTitle:String = ""
     var selectedImageData = Data()
@@ -57,25 +55,20 @@ class RecordViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         view.backgroundColor = UIColor.flatWhite()
         
         bgView.layer.cornerRadius = 20.0
-        
-        
+                
         dateTextField.delegate = self
         memoTextField.delegate = self
                 
         navigationItem.title = recordTitle
         
         navigationController?.navigationBar.tintColor = UIColor.flatWatermelon()
-        self.navigationController?.navigationBar.titleTextAttributes = [
-            // 文字の色
-                .foregroundColor: UIColor.flatWatermelon()]
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.flatWatermelon()]
         
     }
-    
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -169,11 +162,9 @@ class RecordViewController: UIViewController,UIImagePickerControllerDelegate,UIN
                     let data = doc.data()
                     
                     if let location:String = data["location"] as? String,let docid = data["docID"]{
-                                               
                         if recordTitle == location{
                             docID = docid as! String
                         }
-                        
                     }
                 }
             }
@@ -186,30 +177,15 @@ class RecordViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     
     @objc func done() {
        dateTextField.endEditing(true)
-
-       // 日付のフォーマット
+       
        let formatter = DateFormatter()
 
-       //"yyyy年MM月dd日"を"yyyy/MM/dd"したりして出力の仕方を好きに変更できるよ
        formatter.dateFormat = "yyyy年MM月dd日"
 
-       //(from: datePicker.date))を指定してあげることで
-       //datePickerで指定した日付が表示される
        dateTextField.text = "\(formatter.string(from: datePicker.date))"
 
     }
-    
-    // ボタンが押された時に呼ばれるメソッド
-    @objc func buttonEvent(_ sender: UIButton) {
-                
         
-    }
-    
-    @objc func expand(sender:UITapGestureRecognizer){
-//        showActionSheet()
-    }
-    
-    //端末のカメラを開く関数
     func openCamera(){
         let sourceType:UIImagePickerController.SourceType = .camera
         
@@ -223,8 +199,7 @@ class RecordViewController: UIViewController,UIImagePickerControllerDelegate,UIN
             self.present(cameraPicker, animated: true, completion: nil)
         }
     }
-    
-    //アルバムを開く関数
+        
     func openAlbum(){
         let sourceType:UIImagePickerController.SourceType = .photoLibrary
         
@@ -261,7 +236,7 @@ class RecordViewController: UIViewController,UIImagePickerControllerDelegate,UIN
             
             self.getInfo()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){ [self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){ [self] in
                 if somethingImageView.image != nil && memoTextField.text != nil && dateTextField.text != nil{
                     self.addData()
                     
@@ -287,24 +262,6 @@ class RecordViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellCount
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCell",for: indexPath)
-        
-        tableView.rowHeight = view.frame.size.height*0.8 + 80
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        
-        return cell
-    }
-    
+    }    
     
 }

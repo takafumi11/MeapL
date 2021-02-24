@@ -11,18 +11,9 @@ import FirebaseAuth
 import FirebaseFirestore
 import ChameleonFramework
 
-struct LocatioInfo {
-    var location:String = ""
-    var image = Data()
-    var text:String = ""
-    var day:String = ""
-    var anotherDocID:String = ""
-    var docID:String = ""
-}
-
 class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-
-    var locationInfo:[LocatioInfo] = []
+        
+    var locationInfo:[LocationInfo] = []
 
     var recordArr:[String] = [""]
     var docIDArr:[String] = []
@@ -53,6 +44,8 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.refreshControl = refresh
         refresh.addTarget(self, action: #selector(update), for: .valueChanged)
         
+        navigationController?.isNavigationBarHidden = true
+        
     }
     
     
@@ -61,7 +54,7 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         navigationController?.isNavigationBarHidden = true
         getLocation()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.tableView.reloadData()
         }
     }
@@ -106,7 +99,7 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         }
 
         //ここをできる限り短くしたい
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.getInfo()
         }
         
@@ -138,7 +131,7 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
                             let data = doc.data()
                             if let day = data["day"] as? String,let image = data["image"] as? Data,let text = data["text"] as? String,let anotherDocID = data["anotherDocID"] as? String,let docID = data["docID"] as? String{
                                 
-                                let newInfo = LocatioInfo(location: recordArr[i],image: image, text: text, day: day,anotherDocID: anotherDocID,docID: docID)
+                                let newInfo = LocationInfo(location: recordArr[i],image: image, text: text, day: day,anotherDocID: anotherDocID,docID: docID)
                                 locationInfo.append(newInfo)
                             }
                         }
@@ -148,7 +141,7 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         }
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7){
 //            print(self.locationInfo)
 //            print(self.recordArr)
 //            print(self.docIDArr)
@@ -162,17 +155,13 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let tableView = UITableView(frame: .zero,style: .grouped)
 
         tableView.register(UINib(nibName: "TimeLineCell", bundle: nil), forCellReuseIdentifier: "timeLineCell")
-                
         
         return tableView
     }()
-    
-    
+        
     func setupViews() {
         view.addSubview(tableView)
-
     }
-        
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -205,7 +194,6 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
     @objc func tapBtn(_ btn: UIButton){
-      
         
         //番号だけ渡してdeleteVCで削除させる
         let deleteVC = storyboard?.instantiateViewController(identifier: "delete") as! DeleteViewController
@@ -222,10 +210,7 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         deleteVC.locationName = locationName
         
         deleteVC.modalPresentationStyle = .fullScreen
-        showActionSheet(vc: deleteVC)
-        
-        
-   
+        showActionSheet(vc: deleteVC)        
                 
     }
     

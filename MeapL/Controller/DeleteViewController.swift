@@ -20,15 +20,13 @@ class DeleteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-                
           
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
-//        showActionSheet()
+
         deletePost()
                         
     }
@@ -39,27 +37,17 @@ class DeleteViewController: UIViewController {
             if error != nil{
                 print(error)
             }else{
-                print("消したよ")
                 
-//                let TLVC = self.storyboard?.instantiateViewController(identifier: "timeLine") as! TimeLineViewController
-//                self.present(TLVC, animated: true, completion: nil)
                 self.dismiss(animated: true, completion: nil)
                 self.alert(title: "投稿を削除しました!!", message: "", subtitle: "戻る")
-                
             }
         }                
-
     }
     
     
     func alert(title:String,message:String,subtitle:String){
-        //アラートのタイトル
         let dialog = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        //ボタンのタイトル
         dialog.addAction(UIAlertAction(title: subtitle, style: .default, handler: nil))
-        //実際に表示させる
         self.present(dialog, animated: true, completion: nil)
-    }
-
-    
+    }    
 }

@@ -23,11 +23,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Permission to use the camera</string>
+	<string>カメラを使用します。また、撮影した写真をアプリの情報として使用します。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please allow the use of location information.</string>
+	<string>現在地を取得して、現在地の判定と地図の情報として使用します。</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Permission to use the Album</string>
+	<string>アルバムを使用します。また、選択した写真をアプリの情報として使用します。</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -40,8 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             window.rootViewController = navigationVC
         }
-        
-        
+                
         guard let _ = (scene as? UIWindowScene) else { return }
     }
 

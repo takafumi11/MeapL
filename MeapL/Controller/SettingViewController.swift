@@ -16,8 +16,9 @@ class SettingViewController: UIViewController {
         super.viewDidLoad()
 
         setupViews()
+        
+        navigationController?.isNavigationBarHidden = true
     }
-    
     
     let termsBtn: UIButton = {
         let btn=UIButton()
@@ -52,6 +53,17 @@ class SettingViewController: UIViewController {
         return btn
     }()
     
+    let TopBtn: UIButton = {
+        let btn=UIButton()
+        btn.backgroundColor = UIColor.flatWatermelon()
+        btn.setTitle("トップに戻る", for: .normal)
+        btn.layer.cornerRadius = 10
+        btn.tintColor = UIColor.flatWhite()
+        btn.addTarget(self, action: #selector(toTop), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints=false
+        return btn
+    }()
+    
     @objc func terms(_ btn: UIButton){
         let webViewControlle = WebViewController()
         let terms = "https://noifumi.com/MeapL/terms.html"
@@ -68,6 +80,12 @@ class SettingViewController: UIViewController {
     
     @objc func logout(_ btn: UIButton){
         showActionSheet()
+    }
+    
+    @objc func toTop(_ btn: UIButton){
+        let introVC = storyboard?.instantiateViewController(identifier: "intro") as! IntroViewController
+        
+        self.navigationController?.pushViewController(introVC, animated: true)
     }
     
     func showActionSheet(){
@@ -114,6 +132,12 @@ class SettingViewController: UIViewController {
         logoutBtn.leftAnchor.constraint(equalTo: view.leftAnchor,constant: view.frame.size.width*0.1).isActive  = true
         logoutBtn.widthAnchor.constraint(equalToConstant: view.frame.size.width*0.8).isActive = true
         logoutBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+     
+        view.addSubview(TopBtn)
+        TopBtn.topAnchor.constraint(equalTo: view.topAnchor,constant: view.frame.size.height*0.8).isActive  = true
+        TopBtn.leftAnchor.constraint(equalTo: view.leftAnchor,constant: view.frame.size.width*0.1).isActive  = true
+        TopBtn.widthAnchor.constraint(equalToConstant: view.frame.size.width*0.8).isActive = true
+        TopBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true        
         
     }
 

@@ -13,12 +13,12 @@ import ChameleonFramework
 
 class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
-    var recordArr:[String] = []
-    
-    let collectionID:String = Auth.auth().currentUser!.uid
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
+    
+    var recordArr:[String] = []
+    let collectionID:String = Auth.auth().currentUser!.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         UITabBar.appearance().tintColor = UIColor.flatWatermelon()
         
         bgView.backgroundColor = UIColor.flatWatermelon()
-        
+        navigationController?.isNavigationBarHidden = true
         
     }
     
@@ -59,8 +59,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     
                     if let location = data["location"]{
                               
-                        
-                        
                         self.recordArr.append(location as! String)
                         
                     }
@@ -69,14 +67,12 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         
         //ここをできる限り短くしたい
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.tableView.reloadData()
         }
         
     }
     
-    
-
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

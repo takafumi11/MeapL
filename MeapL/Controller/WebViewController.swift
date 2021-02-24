@@ -40,5 +40,4 @@ class WebViewController: UIViewController {
             webView.load(request)
         }
     }      
-
 }
