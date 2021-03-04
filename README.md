@@ -10,6 +10,10 @@
 ・iPhone8 iOS 14.3  
 ・iPhone11 Pro iOS 14.3  
 
+## Build方法
+以下をターミナルで打ち込んでください   
+$pod install
+
 
 ## 機能一覧
 ###  1.アプリ紹介のアニメーション  
